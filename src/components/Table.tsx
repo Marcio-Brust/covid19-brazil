@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const Table = () => {
-  const { data, loading, error } = CovidUf();
-
+  const { DATA_STATES } = CovidUf();
+  const { data, loading, error } = DATA_STATES();
   /*   const [uf, setUf] = useState<string>(""); */
 
   if (loading) return <p>Loading....</p>;

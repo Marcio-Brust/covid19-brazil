@@ -1,8 +1,9 @@
 "use client";
 import useFetch from "@/hooks/useFetch";
+import { type } from "os";
 import { createContext, PropsWithChildren, useContext } from "react";
 
-type ICovidData = {
+type ICovidDataStates = {
   uid: number;
   uf: string;
   state: string;
@@ -14,9 +15,11 @@ type ICovidData = {
 };
 
 type IContextCovid = {
-  data: ICovidData[] | null;
-  loading: boolean;
-  error: string | null;
+  DATA_STATES: () => {
+    data: ICovidDataStates[] | null;
+    loading: boolean;
+    error: string | null;
+  };
 };
 
 const CovidContext = createContext<IContextCovid | null>(null);
@@ -29,12 +32,26 @@ export const CovidUf = () => {
 };
 
 export const CovidContextProvider = ({ children }: PropsWithChildren) => {
-  const { data, loading, error } = useFetch<ICovidData[]>(
-    "https://covid19-brazil-api.now.sh/api/report/v1/"
-  );
+  const BASE_URL = "https://covid19-brazil-api.now.sh/api/report/v1/";
+
+  const DATA_STATES = () => {
+    const { data, loading, error } = useFetch<ICovidDataStates[]>(
+      `${BASE_URL}`
+    );
+
+    return { data, loading, error };
+  };
+
+  const DATA_COUNTRIES = () => {
+    const { data, loading, error } = useFetch<ICovidDataCountries[]>(
+      `${BASE_URL}countries`
+    );
+
+    return { data, loading, error };
+  };
 
   return (
-    <CovidContext.Provider value={{ data, loading, error }}>
+    <CovidContext.Provider value={{ DATA_STATES }}>
       {children}
     </CovidContext.Provider>
   );
