@@ -1,6 +1,6 @@
 "use client";
 import useFetch from "@/hooks/useFetch";
-import { type } from "os";
+
 import { createContext, PropsWithChildren, useContext } from "react";
 
 type ICovidDataStates = {
@@ -14,9 +14,23 @@ type ICovidDataStates = {
   datetime: string;
 };
 
+type ICovidDataCountries = {
+  country: string;
+  cases: number;
+  confirmed: number;
+  deaths: number;
+  recovered: number;
+  updated_at: string;
+};
+
 type IContextCovid = {
   DATA_STATES: () => {
     data: ICovidDataStates[] | null;
+    loading: boolean;
+    error: string | null;
+  };
+  DATA_COUNTRIES: () => {
+    data: ICovidDataCountries[] | null;
     loading: boolean;
     error: string | null;
   };
@@ -51,7 +65,7 @@ export const CovidContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <CovidContext.Provider value={{ DATA_STATES }}>
+    <CovidContext.Provider value={{ DATA_STATES, DATA_COUNTRIES }}>
       {children}
     </CovidContext.Provider>
   );

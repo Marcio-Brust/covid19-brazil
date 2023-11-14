@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { CovidContextProvider } from "@/context/UfContext";
+import { CovidContextProvider } from "@/context/CovidContext";
+import { Header } from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <CovidContextProvider>{children}</CovidContextProvider>
+        <CovidContextProvider>
+          <Header />
+          {children}
+        </CovidContextProvider>
       </body>
     </html>
   );

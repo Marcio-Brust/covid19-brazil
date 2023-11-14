@@ -3,7 +3,7 @@ import { Table } from "@/components/Table";
 
 export default function Home() {
   return (
-    <main>
+    <main className="grid justify-center">
       <Table />
     </main>
   );
