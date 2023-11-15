@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "devarthurribeiro.github.io",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
     ],
   },
 };

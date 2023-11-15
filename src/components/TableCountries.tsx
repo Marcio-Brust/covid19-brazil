@@ -7,6 +7,8 @@ export const TableCountries = () => {
   const { DATA_COUNTRIES } = CovidUf();
   const { data, loading, error } = DATA_COUNTRIES();
 
+
+
   if (error) return <ErrorData />;
   if (loading) return <p>Loading....</p>;
   return (
@@ -23,14 +25,17 @@ export const TableCountries = () => {
         {data?.map(({ country, confirmed, deaths }, index) => (
           <tr key={index}>
             <td>
-              {/* <Image
-                src={`https:////upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_${country}.svg/22px-Flag_of_${country}.svg.png`}
+              <Image
+                src={`https:////upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_${country.replaceAll(
+                  " ",
+                  "_"
+                )}.svg/22px-Flag_of_${country.replaceAll(" ", "_")}.svg.png`}
                 width={0}
                 height={0}
                 alt="image"
                 priority={true}
                 className="cursor-pointer w-auto h-auto"
-              /> */}
+              />
             </td>
             <td>{country}</td>
             <td>{confirmed}</td>
