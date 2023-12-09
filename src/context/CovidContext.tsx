@@ -1,9 +1,26 @@
 "use client";
 import useFetch from "@/hooks/useFetch";
 
-import { createContext, PropsWithChildren, useContext } from "react";
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
 type ICovidDataStates = {
+  uid: number;
+  uf: string;
+  state: string;
+  cases: number;
+  deaths: number;
+  suspects: number;
+  refuses: number;
+  datetime: string;
+};
+type ICovidDataStatesId = {
   uid: number;
   uf: string;
   state: string;
@@ -34,6 +51,12 @@ type IContextCovid = {
     loading: boolean;
     error: string | null;
   };
+  DATA_STATES_ID: () => {
+    data: ICovidDataStatesId | null;
+    loading: boolean;
+    error: string | null;
+  };
+  setIdStates: Dispatch<SetStateAction<string>>;
 };
 
 const CovidContext = createContext<IContextCovid | null>(null);
@@ -48,9 +71,18 @@ export const CovidUf = () => {
 export const CovidContextProvider = ({ children }: PropsWithChildren) => {
   const BASE_URL = "https://covid19-brazil-api.now.sh/api/report/v1/";
 
+  const [idStates, setIdStates] = useState("sp");
+
   const DATA_STATES = () => {
     const { data, loading, error } = useFetch<ICovidDataStates[]>(
       `${BASE_URL}`
+    );
+
+    return { data, loading, error };
+  };
+  const DATA_STATES_ID = () => {
+    const { data, loading, error } = useFetch<ICovidDataStates>(
+      `${BASE_URL}brazil/uf/sp`
     );
 
     return { data, loading, error };
@@ -65,7 +97,9 @@ export const CovidContextProvider = ({ children }: PropsWithChildren) => {
   };
 
   return (
-    <CovidContext.Provider value={{ DATA_STATES, DATA_COUNTRIES }}>
+    <CovidContext.Provider
+      value={{ DATA_STATES, DATA_COUNTRIES, DATA_STATES_ID, setIdStates }}
+    >
       {children}
     </CovidContext.Provider>
   );

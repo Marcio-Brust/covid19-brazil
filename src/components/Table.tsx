@@ -3,13 +3,13 @@ import Image from "next/image";
 import { ErrorData } from "./ErrorData";
 
 export const Table = () => {
-  const { DATA_STATES } = CovidUf();
+  const { DATA_STATES, setIdStates } = CovidUf();
   const { data, loading, error } = DATA_STATES();
 
   if (error) return <ErrorData />;
   if (loading) return <p>Loading....</p>;
   return (
-    <table className="table table-cell mt-24">
+    <table className="table table-cell w-auto mt-24">
       <thead>
         <tr>
           <th></th>
@@ -20,7 +20,7 @@ export const Table = () => {
       </thead>
       <tbody>
         {data?.map(({ state, deaths, cases, uf, uid }) => (
-          <tr key={uid}>
+          <tr key={uid} onClick={() => setIdStates(uf)}>
             <td>
               <Image
                 src={`https://devarthurribeiro.github.io/covid19-brazil-api/static/flags/${uf}.png`}
