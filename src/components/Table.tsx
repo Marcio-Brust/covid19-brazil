@@ -1,6 +1,7 @@
 import { CovidUf } from "@/context/CovidContext";
 import Image from "next/image";
 import { ErrorData } from "./ErrorData";
+import { DialogState } from "./DialogState";
 
 export const Table = () => {
   const { DATA_STATES, setUfStates } = CovidUf();
@@ -19,23 +20,34 @@ export const Table = () => {
         </tr>
       </thead>
       <tbody>
-        {data?.map(({ state, deaths, cases, uf, uid }) => (
-          <tr key={uid} onClick={() => setUfStates(uf)}>
-            <td>
-              <Image
-                src={`https://devarthurribeiro.github.io/covid19-brazil-api/static/flags/${uf}.png`}
-                width={0}
-                height={0}
-                alt="image"
-                priority={true}
-                className="cursor-pointer w-auto h-auto"
-              />
-            </td>
-            <td>{state}</td>
-            <td>{deaths}</td>
-            <td>{cases}</td>
-          </tr>
-        ))}
+        {data?.map(
+          ({ state, deaths, cases, uf, uid, datetime, refuses, suspects }) => (
+            <tr
+              key={uid}
+              onClick={() => {
+                setUfStates(uf);
+                //@ts-ignore
+                document.getElementById("my_modal_2")?.showModal();
+              }}
+              className="cursor-pointer"
+            >
+              <td>
+                <Image
+                  src={`https://devarthurribeiro.github.io/covid19-brazil-api/static/flags/${uf}.png`}
+                  width={0}
+                  height={0}
+                  alt="image"
+                  priority={true}
+                  className="cursor-pointer w-auto h-auto"
+                />
+              </td>
+              <td>{state}</td>
+              <td>{deaths}</td>
+              <td>{cases}</td>
+            </tr>
+          )
+        )}
+        
       </tbody>
     </table>
   );

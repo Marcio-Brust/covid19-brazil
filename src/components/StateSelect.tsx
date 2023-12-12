@@ -53,7 +53,7 @@ export const StateSelect = () => {
   if (error) return <ErrorData />;
 
   return (
-    <section className="mt-24 p-10 w-[400px] h-[400px] ">
+    <section className="mt-24 p-10 w-[400px] h-[400px] max-lg:hidden">
       {loading ? (
         <p>Loading</p>
       ) : (
@@ -62,7 +62,7 @@ export const StateSelect = () => {
             <Image
               src={`https://devarthurribeiro.github.io/covid19-brazil-api/static/flags/${data?.uf}.png`}
               width={100}
-              height={100}
+              height={0}
               alt="image"
               priority={true}
               className=""
