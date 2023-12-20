@@ -8,7 +8,6 @@ import useMedia from "@/hooks/useMedia";
 
 export const Table = () => {
   const mobile = useMedia("(max-width:65rem)");
-
   const { DATA_STATES, setUfStates } = CovidUf();
   const { data, loading, error } = DATA_STATES();
   const [modal, setModal] = useState({
