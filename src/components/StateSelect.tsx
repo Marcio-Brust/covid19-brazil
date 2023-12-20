@@ -55,7 +55,7 @@ export const StateSelect = () => {
   return (
     <section className="mt-24 p-10 w-[400px] h-[400px] max-lg:hidden">
       {loading ? (
-        <p>Loading</p>
+        <span className="loading loading-bars loading-lg"></span>
       ) : (
         <>
           <div className="grid justify-center gap-4">

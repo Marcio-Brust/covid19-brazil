@@ -7,10 +7,8 @@ export const TableCountries = () => {
   const { DATA_COUNTRIES } = CovidUf();
   const { data, loading, error } = DATA_COUNTRIES();
 
-
-
   if (error) return <ErrorData />;
-  if (loading) return <p>Loading....</p>;
+  if (loading) return <span className="loading loading-bars loading-lg"></span>;
   return (
     <table className="table table-cell mt-24">
       <thead>
@@ -30,11 +28,11 @@ export const TableCountries = () => {
                   " ",
                   "_"
                 )}.svg/22px-Flag_of_${country.replaceAll(" ", "_")}.svg.png`}
-                width={0}
+                width={50}
                 height={0}
                 alt="image"
                 priority={true}
-                className="cursor-pointer w-auto h-auto"
+                className="cursor-pointer"
               />
             </td>
             <td>{country}</td>
